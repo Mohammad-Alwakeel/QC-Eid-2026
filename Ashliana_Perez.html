@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>عيد مبارك · Ashliana Perez</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cormorant+SC:wght@300;400;600&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a96e;
+    --gold-light: #e8d5a3;
+    --gold-dim: rgba(201,169,110,0.15);
+    --cream: #faf6ee;
+    --dark: #12100e;
+    --dark2: #1c1814;
+    --dark3: #252018;
+    --text: #e8dcc8;
+    --text-muted: #9a8a6a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  .page { position: relative; z-index: 1; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 24px;
+    position: relative;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(201,169,110,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .eid-arabic {
+    font-family: 'Aref Ruqaa', serif;
+    font-size: clamp(28px, 6vw, 52px);
+    color: var(--gold);
+    letter-spacing: 0.04em;
+    direction: rtl;
+    margin-bottom: 8px;
+    opacity: 0;
+    animation: fadeUp 1.2s ease forwards 0.2s;
+  }
+
+  .eid-sub {
+    font-family: 'Cormorant SC', serif;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 1.2s ease forwards 0.5s;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto 40px;
+    opacity: 0;
+    animation: fadeUp 1.2s ease forwards 0.7s;
+  }
+  .divider-line { flex: 1; height: 0.5px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .divider-diamond { width: 5px; height: 5px; background: var(--gold); transform: rotate(45deg); flex-shrink: 0; }
+
+  .to-label {
+    font-style: italic;
+    font-size: 15px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: fadeUp 1.2s ease forwards 0.9s;
+  }
+
+  .hero-name {
+    font-family: 'Cormorant SC', serif;
+    font-size: clamp(42px, 9vw, 88px);
+    font-weight: 300;
+    color: var(--cream);
+    letter-spacing: 0.12em;
+    line-height: 1;
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: fadeUp 1.4s ease forwards 1s;
+  }
+
+  .hero-role {
+    font-style: italic;
+    font-size: 15px;
+    color: var(--gold);
+    letter-spacing: 0.14em;
+    margin-bottom: 56px;
+    opacity: 0;
+    animation: fadeUp 1.2s ease forwards 1.2s;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 2s;
+  }
+  .scroll-hint span { font-size: 9px; letter-spacing: 0.25em; color: var(--text-muted); text-transform: uppercase; }
+  .scroll-line { width: 0.5px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent); animation: scrollPulse 2s ease-in-out infinite; }
+
+  /* ── SECTIONS ── */
+  section {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 80px 32px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  section.visible { opacity: 1; transform: translateY(0); }
+
+  .section-label {
+    font-family: 'Cormorant SC', serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 0.5px; background: linear-gradient(to right, var(--gold-dim), transparent); }
+
+  /* ── MESSAGE ── */
+  .message-card {
+    background: var(--dark2);
+    border: 0.5px solid rgba(201,169,110,0.2);
+    padding: 40px 44px;
+    position: relative;
+  }
+  .message-card::before, .message-card::after {
+    content: '';
+    position: absolute;
+    width: 16px; height: 16px;
+    border-color: var(--gold);
+    border-style: solid;
+    opacity: 0.5;
+  }
+  .message-card::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
+  .message-card::after { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
+
+  .message-text {
+    font-size: 19px;
+    font-style: italic;
+    line-height: 2;
+    color: var(--text);
+    font-weight: 300;
+  }
+  .message-text em { color: var(--gold-light); font-style: normal; }
+
+  /* ── HIGHLIGHTS ── */
+  .highlight-grid { display: flex; flex-direction: column; gap: 20px; }
+
+  .highlight-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 24px 28px;
+    background: var(--dark2);
+    border-left: 1px solid var(--gold);
+  }
+
+  .highlight-num {
+    font-family: 'Cormorant SC', serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: rgba(201,169,110,0.2);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 36px;
+  }
+
+  .highlight-content h3 {
+    font-family: 'Cormorant SC', serif;
+    font-size: 14px;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-bottom: 8px;
+    font-weight: 400;
+  }
+
+  .highlight-content p {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.8;
+    font-style: italic;
+  }
+
+
+
+  /* ── QUOTE ── */
+  .quote-block {
+    text-align: center;
+    padding: 60px 40px;
+    position: relative;
+  }
+  .quote-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 80px;
+    color: rgba(201,169,110,0.12);
+    line-height: 0.5;
+    margin-bottom: 24px;
+    display: block;
+  }
+  .quote-text {
+    font-size: 22px;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.8;
+    max-width: 520px;
+    margin: 0 auto 24px;
+  }
+  .quote-attr {
+    font-family: 'Cormorant SC', serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--text-muted);
+  }
+
+  /* ── SIGN OFF ── */
+  .signoff {
+    text-align: center;
+    padding: 60px 32px 100px;
+    border-top: 0.5px solid rgba(201,169,110,0.12);
+  }
+  .signoff-from { font-style: italic; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
+  .signoff-name {
+    font-family: 'Cormorant SC', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--cream);
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+  .signoff-title { font-style: italic; font-size: 12px; color: var(--gold); letter-spacing: 0.1em; margin-bottom: 32px; }
+  .signoff-arabic {
+    font-family: 'Aref Ruqaa', serif;
+    font-size: 22px;
+    color: var(--gold);
+    direction: rtl;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; }
+    50%       { opacity: 1; }
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 600px) {
+    .message-card { padding: 28px 24px; }
+    .message-text { font-size: 17px; }
+    .quote-text { font-size: 19px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="eid-arabic">عيد مبارك</div>
+    <div class="eid-sub">Eid Al-Adha · 1447 H</div>
+
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-diamond"></div>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="to-label">this is for</div>
+    <div class="hero-name">Ashliana Perez</div>
+    <div class="hero-role">Quality Analyst · WUDUH</div>
+
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+
+  <!-- PERSONAL MESSAGE -->
+  <section>
+    <div class="section-label">A note from your Senior</div>
+    <div class="message-card">
+      <p class="message-text">
+        Ashliana — this one comes from Jordan, all the way to you in the Dominican Republic, with the most genuine appreciation.<br><br>
+        You are one of the sweetest, funniest, most <em>wonderfully panicked</em> people I've ever worked with. Every time something goes wrong and you enter full emergency mode — it honestly makes the day better. Your reactions are art. Please never change.<br><br>
+        I wish I could hand you this note in person, inside a wooden folder, the way your colleagues are getting theirs. You deserve that moment. So instead, your bill is right here on this page — yours to save, yours to keep, and yours as proof that distance doesn't change how much your presence means to this team.<br><br>
+        You're part of Quality, Ashliana — fully and genuinely. And your existence in this department is appreciated more than you know.
+      </p>
+    </div>
+  </section>
+
+  <!-- HIGHLIGHTS -->
+  <section>
+    <div class="section-label">What stood out this period</div>
+    <div class="highlight-grid">
+      <div class="highlight-item">
+        <div class="highlight-num">01</div>
+        <div class="highlight-content">
+          <h3>Spanish Audits — Organized, On-Target, On-Point</h3>
+          <p>Ashliana has been managing and organizing all Spanish audits with precision, keeping everything within targets consistently. In a role that requires her to coordinate across multiple departments, she's made it look straightforward — which means she's working harder than it appears.</p>
+        </div>
+      </div>
+      <div class="highlight-item">
+        <div class="highlight-num">02</div>
+        <div class="highlight-content">
+          <h3>Hybrid Analyst Across Almost Every Department</h3>
+          <p>As a hybrid analyst covering Spanish agents across nearly all departments, Ashliana carries one of the most demanding workloads in Quality. Adapting to different processes, teams, and standards simultaneously — and doing it well — takes a rare kind of flexibility.</p>
+        </div>
+      </div>
+      <div class="highlight-item">
+        <div class="highlight-num">03</div>
+        <div class="highlight-content">
+          <h3>Recovery, Resilience, and Coming Back Stronger</h3>
+          <p>Following surgery not long ago, Ashliana showed a recovery that made the whole team proud. Coming back to a demanding role after that, and showing up the way she did, says everything about her character.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+  <!-- BILL -->
+  <section style="text-align:center">
+    <div class="section-label">Your NPT Note</div>
+    <div style="display:inline-block;padding:2px;background:linear-gradient(135deg,var(--gold) 0%,rgba(201,169,110,0.3) 50%,var(--gold) 100%);margin-bottom:20px">
+      <div style="background:var(--dark2);padding:16px;position:relative">
+        <img src="https://i.ibb.co/G4w5NTMY/Ashliana-Perez.jpg" alt="Ashliana Perez NPT Note" style="width:100%;max-width:560px;height:auto;display:block;filter:sepia(8%) contrast(0.97)">
+      </div>
+    </div>
+    <div style="font-family:'Cormorant SC',serif;font-size:10px;letter-spacing:0.25em;color:var(--text-muted);margin-bottom:20px">NPT-2026-ASH-001 &nbsp;·&nbsp; 100 Minutes &nbsp;·&nbsp; Q3 2026</div>
+    <a href="https://i.ibb.co/G4w5NTMY/Ashliana-Perez.jpg" download="Ashliana_Perez_NPT_Note.jpg" style="display:inline-flex;align-items:center;gap:10px;padding:13px 32px;border:0.5px solid var(--gold);color:var(--gold);font-family:'Cormorant SC',serif;font-size:11px;letter-spacing:0.28em;text-decoration:none;text-transform:uppercase;background:transparent">&#8595; &nbsp;Save Your Note</a>
+  </section>
+
+  <!-- QUOTE -->
+  <section>
+    <div class="quote-block">
+      <span class="quote-mark">"</span>
+      <p class="quote-text">She's oceans away<br>and still one of the closest people in Quality.</p>
+      <div class="divider" style="margin: 24px auto">
+        <div class="divider-line"></div>
+        <div class="divider-diamond"></div>
+        <div class="divider-line"></div>
+      </div>
+      <div class="quote-attr">For Ashliana — from Jordan, with appreciation</div>
+    </div>
+  </section>
+
+  <!-- SIGN OFF -->
+  <div class="signoff">
+    <div class="signoff-from">with appreciation,</div>
+    <div class="signoff-name">Mohammad Al-Wakeel</div>
+    <div class="signoff-title">Senior Quality Lead · WUDUH</div>
+    <div class="signoff-arabic">كل عام وأنتِ بخير</div>
+  </div>
+
+</div>
+
+<script>
+  const sections = document.querySelectorAll('section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.15 });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
