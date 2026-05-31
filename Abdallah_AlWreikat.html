@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Abood — Eid Mubarak</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500;600&family=Aref+Ruqaa:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:    #12100e;
+    --bg2:   #1c1814;
+    --gold:  #c9a96e;
+    --gold-light: rgba(201,169,110,0.15);
+    --gold-border: rgba(201,169,110,0.2);
+    --cream: #faf6ee;
+    --text:  #e8dcc8;
+    --mid:   #c4b090;
+    --muted: #9a8a6a;
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.5;
+  }
+  .page { position: relative; z-index: 1; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 80px 32px; position: relative;
+  }
+  .hero::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, rgba(201,169,110,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 120px;
+    background: linear-gradient(to bottom, transparent, var(--bg2)); pointer-events: none;
+  }
+  .eid-top {
+    font-family: "Aref Ruqaa", serif; font-size: clamp(22px, 4vw, 36px);
+    color: var(--gold); direction: rtl; margin-bottom: 10px;
+    opacity: 0; animation: riseUp 1.2s ease forwards 0.3s;
+  }
+  .eid-sub {
+    font-family: "Cormorant SC", serif; font-size: 12px;
+    letter-spacing: 0.35em; color: var(--muted); margin-bottom: 60px;
+    opacity: 0; animation: riseUp 1.2s ease forwards 0.6s;
+  }
+  .hero-for {
+    font-style: italic; font-size: 15px; color: var(--muted);
+    letter-spacing: 0.1em; margin-bottom: 14px;
+    opacity: 0; animation: riseUp 1.2s ease forwards 0.9s;
+  }
+  .hero-name {
+    font-family: "Cormorant SC", serif;
+    font-size: clamp(56px, 11vw, 110px); font-weight: 300;
+    color: var(--cream); letter-spacing: 0.08em; line-height: 0.95; margin-bottom: 20px;
+    opacity: 0; animation: riseUp 1.4s ease forwards 1s;
+  }
+  .hero-line {
+    font-style: italic; font-size: clamp(15px, 2.5vw, 20px);
+    color: var(--muted); letter-spacing: 0.06em; max-width: 520px; line-height: 1.7;
+    opacity: 0; animation: riseUp 1.2s ease forwards 1.3s;
+  }
+  .scroll-nudge {
+    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    opacity: 0; animation: riseUp 1s ease forwards 2s;
+  }
+  .scroll-nudge span {
+    font-family: "Cormorant SC", serif; font-size: 9px;
+    letter-spacing: 0.3em; color: var(--muted);
+  }
+  .scroll-line {
+    width: 0.5px; height: 44px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: pulse 2.5s ease-in-out infinite;
+  }
+
+  /* SECTIONS */
+  section {
+    max-width: 700px; margin: 0 auto; padding: 90px 32px;
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  section.visible { opacity: 1; transform: translateY(0); }
+
+  .section-tag {
+    font-family: "Cormorant SC", serif; font-size: 13px;
+    letter-spacing: 0.4em; color: var(--gold); text-transform: uppercase;
+    margin-bottom: 28px; display: flex; align-items: center; gap: 14px;
+  }
+  .section-tag::after {
+    content: ""; flex: 1; height: 0.5px;
+    background: linear-gradient(to right, var(--gold-border), transparent);
+  }
+
+  /* CHARACTER TEXT */
+  .character-text {
+    font-size: clamp(17px, 2.2vw, 21px); font-style: italic;
+    font-weight: 300; line-height: 2; color: var(--text);
+  }
+  .character-text em { font-style: normal; color: var(--gold); font-weight: 400; }
+
+  /* STORY BLOCK — centrepiece */
+  .story-block {
+    background: var(--bg2); border: 0.5px solid var(--gold-border);
+    padding: 44px 48px; position: relative; margin-top: 8px;
+  }
+  .story-block::before, .story-block::after {
+    content: ""; position: absolute;
+    width: 18px; height: 18px; border-color: var(--gold);
+    border-style: solid; opacity: 0.4;
+  }
+  .story-block::before { top:-1px; left:-1px; border-width: 1px 0 0 1px; }
+  .story-block::after  { bottom:-1px; right:-1px; border-width: 0 1px 1px 0; }
+  .story-text {
+    font-size: clamp(16px, 2vw, 19px); font-style: italic;
+    font-weight: 300; line-height: 2.1; color: var(--text);
+  }
+  .story-text em { font-style: normal; color: var(--gold); font-weight: 400; }
+  .story-text p { margin-bottom: 1.5em; }
+  .story-text p:last-child { margin-bottom: 0; }
+
+  /* WORK SECTION */
+  .work-text {
+    font-size: clamp(17px, 2.2vw, 21px); font-style: italic;
+    font-weight: 300; line-height: 2; color: var(--text);
+  }
+  .work-text em { font-style: normal; color: var(--gold); font-weight: 400; }
+
+  /* CLOSING NOTE */
+  .closing-note {
+    font-size: clamp(17px, 2.2vw, 21px); font-style: italic;
+    font-weight: 300; line-height: 2; color: var(--text);
+  }
+  .closing-note em { font-style: normal; color: var(--gold); font-weight: 400; }
+
+  /* SIGNOFF */
+  .signoff {
+    text-align: center; padding: 40px 32px 100px;
+    border-top: 0.5px solid var(--gold-border);
+  }
+  .signoff-from { font-style: italic; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+  .signoff-name {
+    font-family: "Cormorant SC", serif; font-size: 26px; font-weight: 300;
+    color: var(--cream); letter-spacing: 0.1em; margin-bottom: 4px;
+  }
+  .signoff-title { font-style: italic; font-size: 12px; color: var(--gold); letter-spacing: 0.1em; margin-bottom: 28px; }
+  .signoff-arabic { font-family: "Aref Ruqaa", serif; font-size: 20px; color: var(--gold); direction: rtl; }
+
+  @keyframes riseUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; } 50% { opacity: 1; }
+  }
+  @media (max-width: 600px) {
+    .story-block { padding: 28px 24px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hero">
+    <div class="eid-top">عيد مبارك</div>
+    <div class="eid-sub">Eid Al-Adha · 1447 H</div>
+    <div class="hero-for">this one is for</div>
+    <div class="hero-name">Abood</div>
+    <div class="hero-line">One of the rare ones.</div>
+    <div class="scroll-nudge">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+
+  <!-- WHO YOU ARE -->
+  <section>
+    <div class="section-tag">Who You Are</div>
+    <p class="character-text">
+      One of the sharpest minds I've met — and I don't say that casually.
+      What makes it interesting is that it goes well beyond the professional.
+      You read people the way most people can't. You know when someone's not okay.
+      You know when to be completely serious and when to be completely ridiculous —
+      and somehow you always get the timing right.
+      You know how to <em>actually</em> comfort someone. That's not a learned skill.
+      That's just who you are.<br><br>
+      If I ever look at someone and think they truly deserve all the good in the world —
+      Abood, you're one of those people.
+      Your heart is <em>genuinely pure.</em>
+      And I mean that in the least sentimental way possible,
+      because that makes it more true.
+    </p>
+  </section>
+
+  <!-- THE DAY I WON'T FORGET -->
+  <section>
+    <div class="section-tag">The Day I Won't Forget</div>
+    <div class="story-block">
+      <div class="story-text">
+        <p>
+          We were on a hangout — about an hour drive from my place.
+          On the way back, my car started overheating. Then worse.
+          The vehicle was breaking down on the road, slowly, then all at once.
+        </p>
+        <p>
+          Abood was the only one from the team who stayed.
+        </p>
+        <p>
+          He followed me with his car — for the entire route — while I was limping mine forward.
+          When it finally gave out completely, he was there.
+          Helped figure out the carlifter. Stayed through the whole garage situation.
+          Then drove me home. <em>Fifty minutes in the opposite direction from where he lives.</em>
+        </p>
+        <p>
+          He didn't make it a thing. He didn't complain. He didn't leave.
+          He just stayed.
+        </p>
+        <p>
+          I think about that day whenever I think about what it actually means
+          to have someone in your corner. Not the people who say they'd be there —
+          the ones who just <em>are.</em>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- YOUR WORK -->
+  <section>
+    <div class="section-tag">Your Work</div>
+    <p class="work-text">
+      You keep saying you're a narcissist — as a joke, and I know you know
+      exactly how good you are. But let me say it anyway.<br><br>
+      You're nailing it. Every part of it.
+      Your confidence as a senior speaks for itself,
+      and the speed at which you adapted genuinely impressed me.
+      <em>Looking back at myself when I started — I needed significantly more time.</em>
+      You hit the ground running. You made it look easy.
+      So — good job. Even if you already knew.
+    </p>
+  </section>
+
+  <!-- AND EVERYTHING ELSE -->
+  <section>
+    <div class="section-tag">And Everything Else</div>
+    <p class="closing-note">
+      Keep your funny spirit exactly as it is.
+      Half the time I genuinely cannot tell what is going on in that rotten head of yours.
+      The other half, I'm fairly convinced it's just empty.<br><br>
+      Keep obsessing about your shows and your games.
+      Keep playing Marvel Rivals —
+      and for the love of everything, <em>invite me.</em><br><br>
+      And most importantly — I wish you clarity in the big decisions ahead.
+      Abood, big things are waiting for you.
+      That's not something I say to everyone.
+      That's something I mean.<br><br>
+      <em>كل عام وأنت بخير —</em>
+      from your batch-mate, your coworker, and the person who will never let you forget
+      that you drove fifty minutes out of your way.
+    </p>
+  </section>
+
+  <div class="signoff">
+    <div class="signoff-from">with appreciation and respect,</div>
+    <div class="signoff-name">Mohammad Al-Wakeel</div>
+    <div class="signoff-title">Senior Quality Lead · WUDUH</div>
+    <div class="signoff-arabic">كل عام وأنت بخير</div>
+  </div>
+
+</div>
+<script>
+  const obs = new IntersectionObserver(
+    entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add("visible"); }),
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll("section").forEach(s => obs.observe(s));
+</script>
+</body>
+</html>
